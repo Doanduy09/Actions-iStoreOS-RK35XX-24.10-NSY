@@ -72,7 +72,6 @@ TARGET_DEVICES += bdy_g18-pro" >> target/linux/rockchip/image/legacy.mk
 
 
 # 复制 02_network 网络配置文件到 target/linux/rockchip/armv8/base-files/etc/board.d/ 目录下
-rm -f target/linux/rockchip/armv8/base-files/etc/board.d/02_network
 cp -f $GITHUB_WORKSPACE/configfiles/02_network target/linux/rockchip/armv8/base-files/etc/board.d/02_network
 
 
