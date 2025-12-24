@@ -90,17 +90,23 @@
 	};
 
 	thermal-zones {
+		// 禁用原生温控节点
+		package-thermal {
+			status = "disabled";
+		};
+
 		// CPU 核心主温控区（优先级最高，关联风扇调速）
 		cpu_thermal: cpu-thermal {
-			polling-delay-passive = <250>; // 被动散热轮询间隔 250ms
-			polling-delay = <1000>; // 主动散热轮询间隔 1s
+			priority = <100>;
+			polling-delay-passive = <100>; // 被动散热轮询间隔 100ms
+			polling-delay = <0>;
 			thermal-sensors = <&tsadc 0>; // 绑定 CPU 温度传感器
 			status = "okay";
 
 			trips {
-				// 风扇停转阈值：低于 40℃ 保持停转
+				// 风扇停转阈值：低于 37℃ 保持停转
 				cpu_temp_off: temp-off {
-					temperature = <40000>; // 单位 m℃（40℃）
+					temperature = <37000>; // 单位 m℃（37℃）
 					hysteresis = <3000>; // 回差 3℃，避免频繁启停
 					type = "passive";
 				};
@@ -152,7 +158,7 @@
 				// 温度→风扇等级映射（对应 cooling-levels = <0 25 45 65 85 100>）
 				map_off {
 					trip = <&cpu_temp_off>;
-					cooling-device = <&fan 0 0>; // <40℃ → 等级0（停转）
+					cooling-device = <&fan 0 0>; // <37℃ → 等级0（停转）
 				};
 				map1 {
 					trip = <&cpu_temp_level1>;
@@ -181,16 +187,27 @@
 			};
 		};
 
-		// GPU 辅助温控区（可选，增强散热协同）
+		// GPU 辅助温控区（增强散热协同，精准匹配档位）
 		gpu_thermal: gpu-thermal {
-			polling-delay-passive = <250>;
-			polling-delay = <1000>;
+			priority = <90>;
+			polling-delay-passive = <150>;
+			polling-delay = <0>;
 			thermal-sensors = <&tsadc 5>; // 绑定 GPU 温度传感器
 			status = "okay";
 
 			trips {
 				gpu_temp_level1: gpu-level1 {
 					temperature = <45000>; // GPU 45℃ 触发风扇1级
+					hysteresis = <3000>;
+					type = "passive";
+				};
+				gpu_temp_level2: gpu-level2 {
+					temperature = <55000>; // GPU 55℃ 触发风扇2级
+					hysteresis = <3000>;
+					type = "passive";
+				};
+				gpu_temp_level3: gpu-level3 {
+					temperature = <65000>; // GPU 65℃ 触发风扇3级
 					hysteresis = <3000>;
 					type = "passive";
 				};
@@ -204,7 +221,15 @@
 			cooling-maps {
 				gpu_map1 {
 					trip = <&gpu_temp_level1>;
-					cooling-device = <&fan 1 5>; // GPU 温度触发后，风扇随温度联动升级
+					cooling-device = <&fan 1 1>; // GPU 45℃ → 固定1级，不抢占CPU温控主导权
+				};
+				gpu_map2 {
+					trip = <&gpu_temp_level2>;
+					cooling-device = <&fan 2 2>; // GPU 55℃ → 固定2级
+				};
+				gpu_map3 {
+					trip = <&gpu_temp_level3>;
+					cooling-device = <&fan 3 3>; // GPU 65℃ → 固定3级
 				};
 			};
 		};
