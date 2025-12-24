@@ -91,7 +91,9 @@
 
 	fan: pwm-fan {
 		compatible = "pwm-fan";
-		cooling-levels = <0 70 75 80 100>;
+		cooling-levels = <0 25 45 65 85 100>;
+		cooling-min-level = <0>;
+		cooling-max-level = <5>;
 		fan-supply = <&vcc5v0_sys>;
 		pwms = <&pwm3 0 50000 0>;
 		#cooling-cells = <2>;
