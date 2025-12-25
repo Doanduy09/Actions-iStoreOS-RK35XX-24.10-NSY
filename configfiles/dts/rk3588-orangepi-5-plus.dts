@@ -231,7 +231,7 @@
 				};
 				gpu_map3 {
 					trip = <&gpu_temp_level3>;
-					cooling-device = <&fan 3 3>; // GPU 65℃ → 固定3级
+					cooling-device = <&fan 3 5>; // GPU 65℃ → 至少3级，允许升到5级满速
 				};
 			};
 		};
