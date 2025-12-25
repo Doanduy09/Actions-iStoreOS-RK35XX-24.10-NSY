@@ -188,53 +188,6 @@
 				};
 			};
 		};
-
-		// GPU 辅助温控区（增强散热协同，精准匹配档位）
-		gpu_thermal: gpu-thermal {
-			priority = <90>;
-			polling-delay-passive = <150>;
-			polling-delay = <0>;
-			thermal-sensors = <&tsadc 5>; // 绑定 GPU 温度传感器
-			status = "okay";
-
-			trips {
-				gpu_temp_level1: gpu-level1 {
-					temperature = <45000>; // GPU 45℃ 触发风扇1级
-					hysteresis = <3000>;
-					type = "passive";
-				};
-				gpu_temp_level2: gpu-level2 {
-					temperature = <55000>; // GPU 55℃ 触发风扇2级
-					hysteresis = <3000>;
-					type = "passive";
-				};
-				gpu_temp_level3: gpu-level3 {
-					temperature = <65000>; // GPU 65℃ 触发风扇3级
-					hysteresis = <3000>;
-					type = "passive";
-				};
-				gpu_temp_crit: gpu-crit {
-					temperature = <85000>; // GPU 85℃ 临界
-					hysteresis = <5000>;
-					type = "critical";
-				};
-			};
-
-			cooling-maps {
-				gpu_map1 {
-					trip = <&gpu_temp_level1>;
-					cooling-device = <&fan 1 1>; // GPU 45℃ → 固定1级，不抢占CPU温控主导权
-				};
-				gpu_map2 {
-					trip = <&gpu_temp_level2>;
-					cooling-device = <&fan 2 2>; // GPU 55℃ → 固定2级
-				};
-				gpu_map3 {
-					trip = <&gpu_temp_level3>;
-					cooling-device = <&fan 3 5>; // GPU 65℃ → 至少3级，允许升到5级满速
-				};
-			};
-		};
 	};
 
 	fan: pwm-fan {
