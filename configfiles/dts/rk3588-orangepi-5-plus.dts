@@ -93,7 +93,7 @@
 
 	fan: pwm-fan {
 		compatible = "pwm-fan";
-		cooling-levels = <0 85 102 119 136 153 187 204 255>;
+		cooling-levels = <0 85 170 255>;  // 0%, 33%, 67%, 100%
 		fan-supply = <&vcc5v0_sys>;
 		pwms = <&pwm3 0 50000 0>;
 		#cooling-cells = <2>;
@@ -490,61 +490,57 @@
 };
 
 &package_thermal {
-	status = "disabled";
-};
-
-&cpu_thermal {
 	priority = <100>;
-	polling-delay-passive = <150>; // 被动散热轮询间隔 150ms
-	polling-delay-active = <100>; // 主动散热轮询间隔 100ms
+	polling-delay-passive = <1500>;
+	polling-delay-active = <1000>;
 	thermal-sensors = <&tsadc 0>;
 	status = "okay";
 
 	trips {
-		cpu_temp_level1: cpu-temp-level1 {
-			temperature = <47000>;
+		cpu_trip_active_cool: cpu-trip-active-cool {
+			temperature = <48000>;
 			hysteresis = <3000>;
 			type = "passive";
 		};
 
-		cpu_temp_level2: cpu-temp-level2 {
+		cpu_trip_active_low: cpu-trip-active-low {
+			temperature = <55000>;
+			hysteresis = <3000>;
+			type = "active";
+		};
+
+		cpu_trip_active_med: cpu-trip-active-med {
 			temperature = <65000>;
 			hysteresis = <3000>;
 			type = "active";
 		};
 
-		cpu_temp_level3: cpu-temp-level3 {
-			temperature = <85000>;
-			hysteresis = <3000>;
-			type = "active";
-		};
-
-		cpu_temp_level4: cpu-temp-level4 {
-			temperature = <95000>;
+		cpu_trip_active_high: cpu-trip-active-high {
+			temperature = <80000>;
 			hysteresis = <3000>;
 			type = "active";
 		};
 	};
 
 	cooling-maps {
-		map1 {
-			trip = <&cpu_temp_level1>;
+		cpu-active-cool {
+			cooling-device = <&fan THERMAL_NO_LIMIT 1>;
+			trip = <&cpu_trip_active_cool>;
+		};
+
+		cpu-active-low {
 			cooling-device = <&fan 1 2>;
+			trip = <&cpu_trip_active_low>;
 		};
 
-		map2 {
-			trip = <&cpu_temp_level2>;
-			cooling-device = <&fan 2 4>;
+		cpu-active-med {
+			cooling-device = <&fan 2 3>;
+			trip = <&cpu_trip_active_med>;
 		};
 
-		map3 {
-			trip = <&cpu_temp_level3>;
-			cooling-device = <&fan 4 6>;
-		};
-
-		map4 {
-			trip = <&cpu_temp_level4>;
-			cooling-device = <&fan 6 THERMAL_NO_LIMIT>;
+		cpu-active-high {
+			cooling-device = <&fan 3 THERMAL_NO_LIMIT>;
+			trip = <&cpu_trip_active_high>;
 		};
 	};
 };
