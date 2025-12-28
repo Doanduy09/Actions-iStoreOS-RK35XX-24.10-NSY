@@ -499,7 +499,7 @@
 	trips {
 		cpu_trip_active_cool: cpu-trip-active-cool {
 			temperature = <48000>;
-			hysteresis = <2000>;
+			hysteresis = <3000>;
 			type = "passive";
 		};
 
