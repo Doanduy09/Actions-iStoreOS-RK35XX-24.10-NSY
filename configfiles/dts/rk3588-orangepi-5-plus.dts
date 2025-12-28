@@ -509,14 +509,8 @@
 			type = "active";
 		};
 
-		cpu_trip_active_med: cpu-trip-active-med {
-			temperature = <65000>;
-			hysteresis = <3000>;
-			type = "active";
-		};
-
 		cpu_trip_active_high: cpu-trip-active-high {
-			temperature = <80000>;
+			temperature = <65000>;
 			hysteresis = <3000>;
 			type = "active";
 		};
@@ -533,13 +527,8 @@
 			trip = <&cpu_trip_active_low>;
 		};
 
-		cpu-active-med {
-			cooling-device = <&fan 2 3>;
-			trip = <&cpu_trip_active_med>;
-		};
-
 		cpu-active-high {
-			cooling-device = <&fan 3 THERMAL_NO_LIMIT>;
+			cooling-device = <&fan 2 THERMAL_NO_LIMIT>;
 			trip = <&cpu_trip_active_high>;
 		};
 	};
