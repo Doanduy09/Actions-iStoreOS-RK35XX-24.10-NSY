@@ -499,19 +499,19 @@
 	trips {
 		cpu_trip_active_cool: cpu-trip-active-cool {
 			temperature = <48000>;
-			hysteresis = <2000>;
+			hysteresis = <3000>;
 			type = "passive";
 		};
 
 		cpu_trip_active_low: cpu-trip-active-low {
 			temperature = <55000>;
-			hysteresis = <2000>;
+			hysteresis = <3000>;
 			type = "active";
 		};
 
 		cpu_trip_active_high: cpu-trip-active-high {
 			temperature = <65000>;
-			hysteresis = <2000>;
+			hysteresis = <3000>;
 			type = "active";
 		};
 	};
