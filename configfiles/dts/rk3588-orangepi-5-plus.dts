@@ -491,8 +491,8 @@
 
 &package_thermal {
 	priority = <100>;
-	polling-delay-passive = <1500>;
-	polling-delay-active = <1000>;
+	polling-delay-passive = <1000>;
+	polling-delay-active = <500>;
 	thermal-sensors = <&tsadc 0>;
 	status = "okay";
 
