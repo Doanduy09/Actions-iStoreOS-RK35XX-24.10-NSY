@@ -8,11 +8,11 @@
 #===============================================
 
 # 修复系统kernel内核md5校验码不正确的问题
-# https://downloads.openwrt.org/releases/24.10.2/targets/rockchip/armv8/kmods/
-# https://archive.openwrt.org/releases/24.10.2/targets/rockchip/armv8/kmods/
-# https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/24.10.2/targets/rockchip/armv8/kmods/
-# https://mirrors.cqupt.edu.cn/openwrt/releases/24.10.2/targets/rockchip/armv8/kmods/
-# https://mirrors.ustc.edu.cn/openwrt/releases/24.10.2/targets/rockchip/armv8/kmods/
+# https://downloads.openwrt.org/releases/24.10.5/targets/rockchip/armv8/kmods/
+# https://archive.openwrt.org/releases/24.10.5/targets/rockchip/armv8/kmods/
+# https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/24.10.5/targets/rockchip/armv8/kmods/
+# https://mirrors.cqupt.edu.cn/openwrt/releases/24.10.5/targets/rockchip/armv8/kmods/
+# https://mirrors.ustc.edu.cn/openwrt/releases/24.10.5/targets/rockchip/armv8/kmods/
 
 hash_value=""
 Releases_version=$(cat include/version.mk | sed -n 's|.*releases/\([0-9]\+\.[0-9]\+\.[0-9]\+\).*|\1|p')
