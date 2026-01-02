@@ -11,6 +11,7 @@
 #include <rockchip/rk3568.dtsi>
 #include "rk3568-ip.dtsi"
 #include "rk3568-ip-rk809.dtsi"
+#include "rk3568-ramoops.dtsi"
 
 / {
 	model = "NSY-G16 AX3000 Router";
