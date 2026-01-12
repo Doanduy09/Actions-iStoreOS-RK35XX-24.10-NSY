@@ -61,3 +61,14 @@ echo $date_version > version
 author="xiaomeng9597"
 sed -i "s/DISTRIB_DESCRIPTION.*/DISTRIB_DESCRIPTION='%D %V ${date_version} by ${author}'/g" package/base-files/files/etc/openwrt_release
 sed -i "s/OPENWRT_RELEASE.*/OPENWRT_RELEASE=\"%D %V ${date_version} by ${author}\"/g" package/base-files/files/usr/lib/os-release
+
+# Thêm custom feeds cho modemdata, QModem, kwrt-packages, luci-app-modemdata
+echo "" >> feeds.conf.default
+echo "src-git kwrt https://github.com/kiddin9/kwrt-packages.git" >> feeds.conf.default
+echo "src-git qmodem https://github.com/FUjr/QModem.git;main" >> feeds.conf.default
+echo "src-git modemdata https://github.com/obsy/modemdata.git" >> feeds.conf.default
+echo "src-git luci_app_modemdata https://github.com/4IceG/luci-app-modemdata.git" >> feeds.conf.default
+
+# Update và install feeds mới (bỏ qua lỗi nhỏ nếu có)
+./scripts/feeds update -a || true
+./scripts/feeds install -a || true
