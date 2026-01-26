@@ -10,7 +10,9 @@ board_name() {
 init_wifi() {
     local board=$(board_name)
     case "$board" in
-        nsy,g68-plus)
+        nsy,g68-plus|\
+        nsy,g16-plus|\
+        bdy,g18-pro)
             case "$1" in
                 1)
                     sleep 60
