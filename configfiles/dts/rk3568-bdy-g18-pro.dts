@@ -710,9 +710,10 @@
 &pcie3x2 {
 		vpcie3v3-supply = <&vcc3v3_pcie>;
 		reset-gpios = <&gpio4 RK_PC4 GPIO_ACTIVE_HIGH>;
-		status = "okay";
 		num-lanes = <0x2>;
 		pinctrl-0 = <&pcie30x2_reset_h>;
+		rockchip,perst-inactive-ms = <500>;
+		status = "okay";
 };
 
 &pcie30phy {

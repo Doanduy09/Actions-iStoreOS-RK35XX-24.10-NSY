@@ -84,6 +84,8 @@ chmod 755 package/base-files/files/etc/init.d/swconfig_install
 mkdir -p package/base-files/files/lib/firmware/mediatek
 cp -f $GITHUB_WORKSPACE/configfiles/WirelessDriver/mt7916_eeprom.bin package/base-files/files/lib/firmware/mediatek/mt7916_eeprom.bin
 cp -f $GITHUB_WORKSPACE/configfiles/WirelessDriver/mt7916_eeprom_backup.bin package/base-files/files/lib/firmware/mediatek/mt7916_eeprom_backup.bin
+cp -f $GITHUB_WORKSPACE/configfiles/opwifi package/base-files/files/etc/init.d/opwifi
+chmod 755 package/base-files/files/etc/init.d/opwifi
 
 
 # 电工大佬的rtl8367b驱动资源包，暂时使用这样替换
